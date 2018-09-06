@@ -31,6 +31,7 @@ class Config:
     Followers = False
     Following = False
     Favorites = False
+    Info = False
     TwitterSearch = False
     User_full = False
     Profile_full = False
