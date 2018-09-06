@@ -72,4 +72,6 @@ def Tweet(tw, location, config):
     t.link = f"https://twitter.com/{t.username}/status/{t.id}"
     t.retweet = getRetweet(config.Profile, t.username, config.Username)
     t.user_rt = getUser_rt(config.Profile, t.username, config.Username)
+    t.id_conversation = tw.find("div")["data-conversation-id"]
+    
     return t

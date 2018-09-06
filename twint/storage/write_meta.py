@@ -15,7 +15,8 @@ def tweetData(t):
             "link": t.link,
             "retweet": t.retweet,
             "user_rt": t.user_rt,
-            "mentions": ",".join(t.mentions)
+            "mentions": ",".join(t.mentions),
+            "id_conversation": int(t.id_conversation)
             }
     return data
 
@@ -36,7 +37,8 @@ def tweetFieldnames():
             "link",
             "retweet",
             "user_rt",
-            "mentions"
+            "mentions",
+            "id_conversation"
             ]
     return fieldnames
 

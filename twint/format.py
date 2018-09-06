@@ -16,6 +16,7 @@ def Tweet(config, t):
         output = output.replace("{is_retweet}", str(t.retweet))
         output = output.replace("{user_rt}", t.user_rt)
         output = output.replace("{mentions}", str(t.mentions))
+        output = output.replace("{id_conversation}", str(t.id_conversation))
     else:
         output = f"{t.id} {t.datestamp} {t.timestamp} {t.timezone} "
 
