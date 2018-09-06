@@ -21,14 +21,8 @@ def getText(tw):
     return text
 
 def getTweet(tw, mentions):
-    try:
-        text = getText(tw)
-        for i in range(len(mentions)):
-            mention = f"@{mentions[i]}"
-            if mention not in text:
-                text = f"{mention} {text}"
-    except:
-        text = getText(tw)
+    
+    text = getText(tw)
 
     return text
 
