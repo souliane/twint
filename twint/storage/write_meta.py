@@ -59,7 +59,8 @@ def userData(u):
             "media": int(u.media_count),
             "private": u.is_private,
             "verified": u.is_verified,
-            "avatar": u.avatar
+            "avatar": u.avatar,
+            "banner": u.banner
             }
     return data
 
@@ -80,7 +81,8 @@ def userFieldnames():
             "media",
             "private",
             "verified",
-            "avatar"
+            "avatar",
+            "banner"
             ]
     return fieldnames
 

@@ -53,6 +53,7 @@ def User(_format, u):
         output += output.replace("{private}", u.is_private)
         output += output.replace("{verified}", u.is_verified)
         output += output.replace("{avatar}", u.avatar)
+        output += output.replace("{banner}", u.banner)
     else:
         output = f"{u.id} | {u.name} | @{u.username} | Private: "
         output += f"{u.is_private} | Verified: {u.is_verified} |"
@@ -61,5 +62,5 @@ def User(_format, u):
         output += f"| Tweets: {u.tweets} | Following: {u.following}"
         output += f" | Followers: {u.followers} | Likes: {u.likes} "
         output += f"| Media: {u.media_count} | Avatar: {u.avatar}"
-
+        output += f"| Banner: {u.banner}"
     return output

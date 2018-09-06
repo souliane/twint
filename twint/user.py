@@ -89,4 +89,5 @@ def User(ur):
     u.is_private = inf(ur, "private")
     u.is_verified = verified(ur)
     u.avatar = ur.find("img", "ProfileAvatar-image")["src"]
+    u.banner = ur.find("div", "ProfileCanopy-headerBg").find("img")["src"]
     return u
