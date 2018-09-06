@@ -1,3 +1,4 @@
+import sys
 from . import datelock, feed, get, output, verbose, storage
 from asyncio import get_event_loop
 from datetime import timedelta
@@ -45,6 +46,14 @@ class Twint:
                 self.feed, self.init = feed.Json(response)
         except:
             pass
+
+    async def info(self):
+        self.count += 1
+        await get.User(
+            f"http://twitter.com/{self.config.Username}?lang=en",
+            self.config,
+            self.conn
+        )
 
     async def follow(self):
         await self.Feed()
@@ -96,6 +105,8 @@ class Twint:
                 if get.Limit(self.config.Limit, self.count):
                     self.d._until = self.d._until - _days
                     self.feed = [-1]
+        elif self.config.Info:
+            await self.info()
         else:
             while True:
                 if len(self.feed) > 0:
@@ -129,6 +140,10 @@ def Followers(config):
 
 def Following(config):
     config.Following = True
+    run(config)
+
+def Info(config):
+    config.Info = True
     run(config)
 
 def Profile(config):
