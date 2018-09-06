@@ -51,6 +51,7 @@ def media(ur):
     try:
         media_count = ur.find("a", "PhotoRail-headingWithCount js-nav").text
         media_count = media_count.replace("\n", "")[32:].split(" ")[0]
+        media_count = media_count.replace(",", "")
     except:
         media_count = "0"
 
