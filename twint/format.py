@@ -21,13 +21,20 @@ def Tweet(config, t):
         output = f"{t.id} {t.datestamp} {t.timestamp} {t.timezone} "
 
         if config.Profile and t.username.lower() != config.Username:
-           output += "RT "
+            output += "RT "
 
         output += f"<{t.username}> {t.tweet}"
 
         if config.Show_hashtags:
             hashtags = ",".join(t.hashtags)
             output += f" {hashtags}"
+        if any((config.Images, config.Videos, config.Media)):
+            if t.image_url:
+                assert t.video_url is None
+                output += f" | Image {t.image_url}"
+            else:
+                assert t.video_url is not None
+                output += f" | Video {t.video_url}"
         if config.Stats:
             output += f" | {t.replies} replies {t.retweets} retweets {t.likes} likes"
         if config.Location:

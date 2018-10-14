@@ -1,8 +1,42 @@
-from time import strftime, localtime
 import re
+from time import strftime, localtime
+
+from bs4.element import Tag
+
+from twint.config import Config
+
 
 class tweet:
-    pass
+    image_url = None
+    video_url = None
+
+    def __init__(self, tweet_elt: Tag, config: Config):
+        if config.Images or config.Media:
+            self.setImageUrl(tweet_elt)
+
+        if config.Videos or config.Media:
+            self.setVideoUrl(tweet_elt)
+
+    def setImageUrl(self, tweet_elt):
+        image_urls = [
+            elt["src"]
+            for elt in tweet_elt.findAll("img", {"data-aria-label-part": True})
+        ]
+        try:
+            self.image_url = image_urls[0].strip()
+        except IndexError:
+            self.image_url = None
+
+    def setVideoUrl(self, tweet_elt):
+        video_urls = [
+            re.match(r".*url\('([^']+)'\)", elt["style"]).group(1)
+            for elt in tweet_elt.findAll("div", {"class": "PlayableMedia-player"})
+        ]
+        try:
+            self.video_url = video_urls[0].strip()
+        except IndexError:
+            self.video_url = None
+
 
 def getMentions(tw):
     try:
@@ -46,7 +80,7 @@ def getUser_rt(profile, username, user):
     return user_rt
 
 def Tweet(tw, location, config):
-    t = tweet()
+    t = tweet(tw, config)
     t.id = tw.find("div")["data-item-id"]
     t.datetime = int(tw.find("span", "_timestamp")["data-time"])
     t.datestamp = strftime("%Y-%m-%d", localtime(t.datetime))
